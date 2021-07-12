@@ -2,7 +2,7 @@ pragma solidity ^0.5.0;
 
 // The game of RockPaperScissors
 contract RockPaperScissors {
-    // There are two players in this game and each of them makes a choice
+
     address payable private player1;
     address payable private player2;
     string private choiceOfPlayer1;
@@ -10,13 +10,6 @@ contract RockPaperScissors {
     bool private hasPlayer1MadeChoice;
     bool private hasPlayer2MadeChoice;
     
-    // When a player joins the game, they have to pay a playing fee 
-    uint256 public stake; //the stake should be visible to Player2
-
-    // A matrix containing result of the game depedning on its states
-    mapping(string => mapping(string => uint8)) private states;
-
-    // The constructor initialise the game environment
     constructor() public {
         states['R']['R'] = 0;
         states['R']['P'] = 2;
@@ -31,7 +24,6 @@ contract RockPaperScissors {
         stake = 1 ether;
     }
     
-    // Modifiers
     
     modifier isJoinable() {
         require(player1 == address(0) || player2 == address(0),
@@ -66,7 +58,6 @@ contract RockPaperScissors {
         _;
     }
 
-    // Functions
      
     function join() external payable 
         isJoinable() // To join the game, there must be a free space
